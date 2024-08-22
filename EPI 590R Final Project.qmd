@@ -21,6 +21,7 @@ install.packages("gtsummary")
 install.packages("here")
 install.packages("broom")
 install.packages("broom.helpers")
+install.packages("ggplot2")
 
 library(tidyverse)
 library(dplyr)
@@ -29,9 +30,10 @@ library(gtsummary)
 library(here)
 library(broom)
 library(broom.helpers)
+library(ggplot2)
 ```
 
-## Description of the data
+## Description of the Data
 
 The data comes from.....
 
@@ -112,9 +114,30 @@ regression
 @tbl-two shows the regression of significant coronary disease on a series of predictor variables, including age, sex, duration of chest pain, and serum cholesterol level. 
 
 
-# Figure
+# Histogram of Cholesterol
+```{r}
+#| warning: false
+#| message: false
+#| label: fig-one
+#| fig-cap: "Histogram of serum cholesterol level"
+hist <- ggplot(cath, aes(x = choleste)) +
+  geom_histogram(fill = "lightyellow", color = "black") +
+  labs(title = "Histogram of serum cholesterol level",
+       x = "Serum cholesterol level (mg/dL)",
+       y = "Frequency")
+hist
 
+# Save the figure
+ggsave(plot = hist, 
+       filename = here::here("figures", "histogram.pdf"))
+```
 
+@fig-one depicts a histogram of serum cholesterol levels (mg/dL) for all participants in the study. 
 
 # Function 
+
+
+
+
+
 
