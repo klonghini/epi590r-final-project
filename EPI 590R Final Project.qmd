@@ -30,6 +30,7 @@ library(broom)
 ```
 
 ## Description of the data
+
 The data comes from.....
 
 ```{r}
@@ -37,30 +38,45 @@ The data comes from.....
 load(here::here("data", "raw", "cath.rda")) 
 
 cath <- cath %>%
-  mutate(sex_cat = factor(cath$sex, labels = c("Male", "Female")))
+  mutate(sex_cat = factor(cath$sex, labels = c("Male", "Female")),
+         sigdz_cat = factor(cath$sigdz, labels = c("No", "Yes")),
+         tvdlm_cat = factor(cath$tvdlm, labels = c("No", "Yes"))
+  )
 
 ```
 
-
 ## Table of descriptive statistics
+
 ```{r}
 #| label: tbl-one
 #| tbl-cap: "Table of descriptive statistics"
 
-tbl_summary(
+table1<- tbl_summary(
   cath,
   by = sex_cat,
-  include = c(sex_cat, age, cad_dur, choleste),
+  include = c(sex_cat, age, cad_dur, choleste, sigdz_cat, tvdlm_cat),
   label = list(
     age ~ "Age (years)",
     cad_dur ~ "Duration of chest pain symptoms (days)",
-    choleste ~ "Serum cholesterol level (milligrams per deciliter)"
+    choleste ~ "Serum cholesterol level (milligrams per deciliter)",
+    sigdz_cat ~ "Significant coronary disease (at least 75% blockage of at least one of the major coronary arteries)",
+    tvdlm_cat ~ "Three vessel disease/left main disease (blockage of either all three of the coronary vessels, or blockage of the left main coronary artery)"
   ),
   missing_text = "Missing") %>%
   add_overall(last = TRUE)
+
+table1
 ```
 
-@tbl-one displays descriptive statistics for the predictor variables in the data set, including age, duration of chest pain symptoms, and serum cholesterol level. 
+@tbl-one displays descriptive statistics for the predictor and outcome variables in the data set, including age, duration of chest pain symptoms, serum cholesterol level, and coronary artery and coronary vessel blockages .
 
+The overall median duration of chest pain symptoms is `r median(cath$cad_dur, na.rm = T)` days.
 
+```{r}
+cholesterol_median_male <- inline_text(table1, variable = "choleste", 
+                         column = "stat_1")
+cholesterol_median_female <- inline_text(table1, variable = "choleste", 
+                         column = "stat_2")
+```
 
+The median serum cholesterol level for males (`r cholesterol_median_male` mg/dL) is lower than the median serum cholesterol level for females (`r cholesterol_median_female` mg/dL) in the study.
