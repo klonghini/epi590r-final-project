@@ -4,11 +4,10 @@ author: "Kelly Longhini"
 format:
   html:
     embed-resources: true
-execute: 
-  echo: false
 ---
 
 ```{r}
+#| echo: false
 #| warning: false
 #| message: false
 
@@ -52,6 +51,7 @@ cath <- cath %>%
 ## Descriptive Statistics
 
 ```{r}
+#| echo: false
 #| label: tbl-one
 #| tbl-cap: "Table of descriptive statistics"
 
@@ -93,6 +93,7 @@ logistic_model <- glm(sigdz ~ age + sex_cat + cad_dur + choleste,
 ```
 
 ```{r}
+#| echo: false
 #| label: tbl-two
 #| tbl-cap: "Logistic regression results"
 
@@ -116,6 +117,7 @@ regression
 
 # Histogram of Cholesterol
 ```{r}
+#| echo: false
 #| warning: false
 #| message: false
 #| label: fig-one
@@ -126,16 +128,51 @@ hist <- ggplot(cath, aes(x = choleste)) +
        x = "Serum cholesterol level (mg/dL)",
        y = "Frequency")
 hist
+```
 
+@fig-one depicts a histogram of serum cholesterol levels (mg/dL) for all participants in the study. 
+
+```{r}
+#| warning: false
+#| message: false
 # Save the figure
 ggsave(plot = hist, 
        filename = here::here("figures", "histogram.pdf"))
 ```
 
-@fig-one depicts a histogram of serum cholesterol levels (mg/dL) for all participants in the study. 
 
-# Function 
+# Standard Deviation Function 
 
+```{r}
+# Create the standard deviation function 
+new_sd <- function(x) {
+	n <- length(x)
+	mean_val <- sum(x)/n
+	variance <- sum((x - mean_val)^2) / (n - 1)
+	sd_val <- (variance)^0.5
+	return(sd_val)
+}
+
+# Test the standard deviation function 
+new_sd(x = c(2, 5, 34, 23, 3))
+sd(x = c(2, 5, 34, 23, 3))
+
+# Use the standard deviation function with the data
+new_sd(x = cath$cad_dur)
+sd(cath$cad_dur)
+
+cad_dur_sd <- new_sd(x = cath$cad_dur)
+
+new_sd(x = cath$age)
+sd(cath$age)
+
+age_sd <- new_sd(x = cath$age)
+
+```
+
+The standard deviation of the duration of chest pain symptoms is `r cad_dur_sd` days. 
+
+The standard deviation of age in the sample is `r age_sd` years. 
 
 
 
