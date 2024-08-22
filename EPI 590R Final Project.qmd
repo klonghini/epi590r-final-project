@@ -1,8 +1,11 @@
 ---
 title: "EPI 590R Final Project"
 author: "Kelly Longhini"
-format: html
-editor: visual
+format:
+  html:
+    embed-resources: true
+execute: 
+  echo: false
 ---
 
 ```{r}
@@ -26,30 +29,38 @@ library(here)
 library(broom)
 ```
 
+## Description of the data
+The data comes from.....
+
 ```{r}
 # Load in the catheterization R data set using the here package
-load(here::here("data", "raw", "cath.rda"))
+load(here::here("data", "raw", "cath.rda")) 
+
+cath <- cath %>%
+  mutate(sex_cat = factor(cath$sex, labels = c("Male", "Female")))
 
 ```
 
 
-## Create a gtsummary table of descriptive statistics about your data
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
+## Table of descriptive statistics
 ```{r}
-1 + 1
+#| label: tbl-one
+#| tbl-cap: "Table of descriptive statistics"
+
+tbl_summary(
+  cath,
+  by = sex_cat,
+  include = c(sex_cat, age, cad_dur, choleste),
+  label = list(
+    age ~ "Age (years)",
+    cad_dur ~ "Duration of chest pain symptoms (days)",
+    choleste ~ "Serum cholesterol level (milligrams per deciliter)"
+  ),
+  missing_text = "Missing") %>%
+  add_overall(last = TRUE)
 ```
 
-You can add options to executable code like this
+@tbl-one displays descriptive statistics for the predictor variables in the data set, including age, duration of chest pain symptoms, and serum cholesterol level. 
 
-```{r}
-#| echo: false
-2 * 2
-```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
