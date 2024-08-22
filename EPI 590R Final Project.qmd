@@ -1,0 +1,55 @@
+---
+title: "EPI 590R Final Project"
+author: "Kelly Longhini"
+format: html
+editor: visual
+---
+
+```{r}
+#| warning: false
+#| message: false
+
+# Install and call packages
+
+install.packages("tidyverse")
+install.packages("dplry")
+install.packages("rmarkdown")
+install.packages("gtsummary")
+install.packages("here")
+install.packages("broom")
+
+library(tidyverse)
+library(dplyr)
+library(rmarkdown)
+library(gtsummary)
+library(here)
+library(broom)
+```
+
+```{r}
+# Load in the catheterization R data set using the here package
+load(here::here("data", "raw", "cath.rda"))
+
+```
+
+
+## Create a gtsummary table of descriptive statistics about your data
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
