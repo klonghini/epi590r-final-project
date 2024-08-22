@@ -20,6 +20,7 @@ install.packages("rmarkdown")
 install.packages("gtsummary")
 install.packages("here")
 install.packages("broom")
+install.packages("broom.helpers")
 
 library(tidyverse)
 library(dplyr)
@@ -27,6 +28,7 @@ library(rmarkdown)
 library(gtsummary)
 library(here)
 library(broom)
+library(broom.helpers)
 ```
 
 ## Description of the data
@@ -45,7 +47,7 @@ cath <- cath %>%
 
 ```
 
-## Table of descriptive statistics
+## Descriptive Statistics
 
 ```{r}
 #| label: tbl-one
@@ -80,3 +82,39 @@ cholesterol_median_female <- inline_text(table1, variable = "choleste",
 ```
 
 The median serum cholesterol level for males (`r cholesterol_median_male` mg/dL) is lower than the median serum cholesterol level for females (`r cholesterol_median_female` mg/dL) in the study.
+
+
+## Logistic Regression
+```{r}
+logistic_model <- glm(sigdz ~ age + sex_cat + cad_dur + choleste,
+											data = cath, family = binomial())
+```
+
+```{r}
+#| label: tbl-two
+#| tbl-cap: "Logistic regression results"
+
+regression <- tbl_regression(
+  logistic_model,
+  exponentiate = TRUE,
+  label = list(
+    age ~ "Age (years)",
+    sex_cat ~ "Sex",
+    cad_dur ~ "Duration of chest pain (days)",
+    choleste ~ "Serum cholesterol level (mg/dL)"
+  )
+)
+
+regression
+
+```
+
+@tbl-two shows the regression of significant coronary disease on a series of predictor variables, including age, sex, duration of chest pain, and serum cholesterol level. 
+
+
+# Figure
+
+
+
+# Function 
+
