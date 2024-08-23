@@ -64,7 +64,7 @@ table1<- tbl_summary(
   label = list(
     age ~ "Age (years)",
     cad_dur ~ "Duration of chest pain symptoms (days)",
-    choleste ~ "Serum cholesterol level (milligrams per deciliter)",
+    choleste ~ "Serum cholesterol level (mg/dL)",
     sigdz_cat ~ "Significant coronary disease (at least 75% blockage of at least one of the major coronary arteries)",
     tvdlm_cat ~ "Three vessel disease/left main disease (blockage of either all three of the coronary vessels, or blockage of the left main coronary artery)"
   ),
@@ -74,7 +74,7 @@ table1<- tbl_summary(
 table1
 ```
 
-@tbl-one displays descriptive statistics for the predictor and outcome variables in the data set, including age, duration of chest pain symptoms, serum cholesterol level, and coronary artery and coronary vessel blockages .
+@tbl-one displays descriptive statistics for the predictor and outcome variables in the data set, including age, duration of chest pain symptoms, serum cholesterol level, and coronary artery and coronary vessel blockages.
 
 The overall median duration of chest pain symptoms is `r median(cath$cad_dur, na.rm = T)` days.
 
