@@ -34,7 +34,9 @@ library(ggplot2)
 
 ## Description of the Data
 
-The data comes from.....
+The data is from a retrospective cohort study of cardiac catherterization and outcomes, from the Duke University Cardiovascular Disease Databank. This data set contains 3504 participants with chest pain who were evaluated with cardiac catheterization. The findings of the catheterization are summarized in two outcome variables, sigdz (at least 75% blockage of at least one of the major coronary arteries) and tvdlm (blockage of either all three of the coronary vessels, or blockage of the left main coronary artery). Risk factors, including sex, age, duration of symptoms (cad_dur), and the serum cholesterol level (choleste) are included.
+
+Source: https://htmlpreview.github.io/?https://github.com/higgi13425/medicaldata/blob/master/man/description_docs/cath_desc.html
 
 ```{r}
 # Load in the catheterization R data set using the here package
